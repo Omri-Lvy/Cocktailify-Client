@@ -43,11 +43,16 @@ const Explore = () => {
     }, [loading]);
 
 
-    const cocktailListRender = () => (
-        cocktails.map((cocktail, index) => (
-            <CocktailCard key={index} cocktail={cocktail}/>
-        ))
-    )
+    const cocktailListRender = () => {
+        if (loading) return
+        if (cocktails.length === 0) {
+            return <h2 className="text-2xl text-center mt-5">No cocktails found</h2>
+        }
+        return (
+            cocktails.map((cocktail, index) => (
+                <CocktailCard key={index} cocktail={cocktail}/>
+            )))
+    }
 
     return (
         <div className="relative mt-4 max-w-7xl mx-auto">
