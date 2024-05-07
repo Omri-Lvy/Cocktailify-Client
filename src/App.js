@@ -14,7 +14,7 @@ export default function App() {
     return (
         <>
             <Navbar/>
-            <div className="max-w-screen-2xl overflow-hidden flex-1 px-6 md:px-16">
+            <div className="max-w-screen-2xl overflow-hidden flex-1 px-6 md:px-16 mx-auto">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/explore" element={<Explore/>}/>
