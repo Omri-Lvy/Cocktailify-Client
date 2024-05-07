@@ -1,6 +1,5 @@
-const defaultServer = 'http://127.0.0.1:5000'
-
 export const fetcher = async (url, method = 'GET', body = null, headers = {}) => {
+    const defaultServer = process.env.REACT_APP_BACKEND_ADDRESS_PROD
     try {
         const response = await fetch(`${defaultServer}${url}`, {
             method,
@@ -9,7 +8,7 @@ export const fetcher = async (url, method = 'GET', body = null, headers = {}) =>
         });
 
         if (!response.ok) {
-            throw new Error('Something went wrong');
+            return []
         }
 
         return await response.json();
