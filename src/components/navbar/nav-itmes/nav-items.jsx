@@ -45,7 +45,7 @@ const NavItems = ({isOpen}) => {
             className={`${classes} transition-navbar duration-500 overflow-hidden lg:overflow-visible flex items-start lg:items-center gap-4 flex-col lg:flex-row lg:justify-between px-4 lg:p-0 w-full fixed lg:relative left-0 right-0 top-full bg-neutral-900 lg:bg-transparent lg:border-none border-slate-700 lg:mt-0`}>
             <div
                 className="flex flex-col-reverse lg:flex-row gap-3 items-start lg:items-center justify-between flex-1 w-full">
-                <ul className="flex gap-3 flex-col md:flex-row w-max">
+                <ul className="flex gap-3 flex-col lg:flex-row w-max">
                     {navItemsRenderer()}
                 </ul>
                 <form method={"get"} action={"/search"}

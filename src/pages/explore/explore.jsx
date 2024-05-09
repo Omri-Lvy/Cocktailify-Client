@@ -33,21 +33,19 @@ const Explore = () => {
         observer.current = new IntersectionObserver(callback, {threshold: 0.01, rootMargin: "960px 0px 0px 0px"});
         const currentLoadMoreRef = loadMoreRef.current;
 
-        if (currentLoadMoreRef) {
+        if (currentLoadMoreRef && cocktails.length) {
             observer.current.observe(currentLoadMoreRef);
         }
 
         return () => {
             if (observer.current) observer.current.disconnect();
         };
+    // eslint-disable-next-line
     }, [loading]);
 
 
     const cocktailListRender = () => {
         if (loading) return
-        if (cocktails.length === 0) {
-            return <h2 className="text-2xl text-center mt-5">No cocktails found</h2>
-        }
         return (
             cocktails.map((cocktail, index) => (
                 <CocktailCard key={index} cocktail={cocktail}/>
@@ -69,10 +67,12 @@ const Explore = () => {
                 </h6>
             </div>
             <div className="block">
+                {cocktails.length === 0 && !loading ? <h2 className="text-center text-3xl mt-10 font-semibold">No cocktails found</h2> :
                 <div
                     className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mt-10 lg:mt-20 gap-6 px-4">
                     {cocktailListRender()}
                 </div>
+                }
                 {loading && <Loader/>}
                 <div ref={loadMoreRef}/>
             </div>
