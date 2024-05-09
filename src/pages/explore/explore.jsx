@@ -10,16 +10,17 @@ const Explore = () => {
     const loadMoreRef = useRef(null);
     const observer = useRef(null);
 
-    const getCocktails = async (page) => {
+    const getCocktails = async (page = 0) => {
         const res = await fetcher("/explore?page=" + page);
         setCocktails([...cocktails, ...res]);
         setLoading(false);
-    };
+    }
 
     useEffect(() => {
         if (loading) return;
         setLoading(true);
         getCocktails(page);
+    // eslint-disable-next-line
     }, [page]);
 
     useEffect(() => {
@@ -43,13 +44,11 @@ const Explore = () => {
     }, [loading]);
 
 
-    const cocktailListRender = () => {
-        if (loading) return
-        return (
-            cocktails.map((cocktail, index) => (
-                <CocktailCard key={index} cocktail={cocktail}/>
-            )))
-    }
+    const cocktailListRender = () => (
+        cocktails.map((cocktail, index) => (
+            <CocktailCard key={index} cocktail={cocktail}/>
+        ))
+    )
 
     return (
         <div className="relative mt-4 max-w-7xl mx-auto">
