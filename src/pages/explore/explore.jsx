@@ -20,7 +20,6 @@ const Explore = () => {
         if (loading) return;
         setLoading(true);
         getCocktails(page);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
     useEffect(() => {

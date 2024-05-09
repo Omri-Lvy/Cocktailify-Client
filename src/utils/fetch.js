@@ -7,11 +7,6 @@ export const fetcher = async (url, method = 'GET', body = null, headers = {}) =>
             body,
             headers
         });
-
-        if (!response.ok) {
-            return []
-        }
-
         return await response.json();
     } catch (e) {
         console.log(e);
