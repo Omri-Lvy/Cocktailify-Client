@@ -7,6 +7,7 @@ import Cocktail from "./pages/cocktail/cocktail";
 import Search from "./pages/search/search";
 import DrinksByType from "./pages/drinks-by-type/drinks-by-type";
 import Category from "./pages/category/category";
+import SignupLoginModal from "./components/signup-login-modal/signup-login-modal";
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
                     <Route path="*" element={<></>}/>
                 </Routes>
             </div>
+            <SignupLoginModal />
             <Footer/>
         </>
     )

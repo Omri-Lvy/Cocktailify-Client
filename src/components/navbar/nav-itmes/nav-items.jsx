@@ -2,11 +2,13 @@ import React, {useRef} from 'react';
 import {navItems} from "../../../constants";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Search} from 'lucide-react';
+import {useSignupLoginModal} from "../../../context/signup-login-modal-context";
 
 const NavItems = ({isOpen}) => {
     const location = useLocation();
     const searchInput = useRef(null)
     const navigate = useNavigate();
+    const {openModal, setActiveTab} = useSignupLoginModal();
 
     const navItemsRenderer = () => (
         navItems.map((item, index) => (
@@ -17,13 +19,20 @@ const NavItems = ({isOpen}) => {
         ))
     );
 
+    const handleButtonClick = (tab) => {
+        openModal();
+        setActiveTab(tab);
+    }
+
     const navButtonRenderer = () => (
         <>
-            <button className="py-2 px-3 border rounded-md">
+            <button className="py-2 px-3 border rounded-md" onClick={()=>handleButtonClick("login")}>
                 Sign In
             </button>
             <button
-                className="bg-gradient-to-r from-[#FDAC42] via-[#FF8800] to-[#E57A00] py-2 px-3 rounded-md drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)]">
+                className="bg-gradient-to-r from-[#FDAC42] via-[#FF8800] to-[#E57A00] py-2 px-3 rounded-md drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)]"
+                onClick={()=>handleButtonClick("signup")}
+            >
                 Create Account
             </button>
         </>

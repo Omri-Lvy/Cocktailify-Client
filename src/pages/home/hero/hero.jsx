@@ -2,8 +2,16 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import video1 from "../../../assets/videos/video1.mp4";
 import video2 from "../../../assets/videos/video2.mp4";
+import {useSignupLoginModal} from "../../../context/signup-login-modal-context";
 
 const Hero = () => {
+    const {openModal,setActiveTab} = useSignupLoginModal();
+
+    const startForFreeClickHandler = (tab) => {
+        openModal();
+        setActiveTab(tab)
+    }
+
     return (
         <div className="flex flex-col items-center pt-6 lg:pt-20 relative max-w-7xl mx-auto">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
@@ -20,7 +28,9 @@ const Hero = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center my-10 gap-4">
                 <button
-                    className="bg-gradient-to-r from-[#E57A00] via-[#FF8800] to-[#FDAC42] text-white py-3 px-8 rounded-md text-lg drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)] transition-all duration-300 hover:drop-shadow-[0_4px_12px_rgba(255,136,0,0.4)]">
+                    className="bg-gradient-to-r from-[#E57A00] via-[#FF8800] to-[#FDAC42] text-white py-3 px-8 rounded-md text-lg drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)] transition-all duration-300 hover:drop-shadow-[0_4px_12px_rgba(255,136,0,0.4)]"
+                    onClick={() => startForFreeClickHandler("signup")}
+                >
                     Start for free
                 </button>
                 <Link to="/explore"
