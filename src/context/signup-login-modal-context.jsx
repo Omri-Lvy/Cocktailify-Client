@@ -9,7 +9,7 @@ const SignupLoginModalContext = createContext({
 });
 
 export const SignupLoginModalProvider = ({children}) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('login');
 
     const openModal = () => setIsOpen(true);

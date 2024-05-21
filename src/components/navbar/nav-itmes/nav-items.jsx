@@ -3,12 +3,14 @@ import {navItems} from "../../../constants";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Search} from 'lucide-react';
 import {useSignupLoginModal} from "../../../context/signup-login-modal-context";
+import {useIsLoggedIn} from "../../../context/is-loggedin-context";
 
 const NavItems = ({isOpen}) => {
     const location = useLocation();
     const searchInput = useRef(null)
     const navigate = useNavigate();
     const {openModal, setActiveTab} = useSignupLoginModal();
+    const {isLoggedIn, loginChangeHandler} = useIsLoggedIn();
 
     const navItemsRenderer = () => (
         navItems.map((item, index) => (
@@ -25,17 +27,28 @@ const NavItems = ({isOpen}) => {
     }
 
     const navButtonRenderer = () => (
-        <>
-            <button className="py-2 px-3 border rounded-md" onClick={()=>handleButtonClick("login")}>
-                Sign In
-            </button>
-            <button
-                className="bg-gradient-to-r from-[#FDAC42] via-[#FF8800] to-[#E57A00] py-2 px-3 rounded-md drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)]"
-                onClick={()=>handleButtonClick("signup")}
-            >
-                Create Account
-            </button>
-        </>
+        isLoggedIn ? (
+            <>
+                <Link to={"/my-favorites"} className={"bg-gradient-to-r from-[#FDAC42] via-[#FF8800] to-[#E57A00] py-2 px-3 rounded-md drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)]"}>
+                    My Favorites
+                </Link>
+                <button className="py-2 px-3 border rounded-md" onClick={() => loginChangeHandler(false)}>
+                    Sign Out
+                </button>
+            </>
+        ) : (
+            <>
+                <button className="py-2 px-3 border rounded-md" onClick={()=>handleButtonClick("login")}>
+                    Sign In
+                </button>
+                <button
+                    className="bg-gradient-to-r from-[#FDAC42] via-[#FF8800] to-[#E57A00] py-2 px-3 rounded-md drop-shadow-[0_4px_8px_rgba(255,136,0,0.4)]"
+                    onClick={()=>handleButtonClick("signup")}
+                >
+                    Create Account
+                </button>
+            </>
+        )
     )
 
     const searchHandler = (e) => {
