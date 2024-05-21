@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {fetcher} from "../../utils/fetch";
-import Divider from "../../components/ui/Divider";
+import Divider from "../../components/ui/divider";
 
 const Cocktail = () => {
     const {pathname} = useLocation();

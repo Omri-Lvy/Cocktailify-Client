@@ -42,7 +42,6 @@ const SignupForm = () => {
                 });
                 closeModal();
             }
-            console.log(res['message']);
         } catch (e) {
             console.log('Error creating account:', e.message)
         }

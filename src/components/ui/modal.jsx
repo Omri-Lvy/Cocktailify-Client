@@ -9,7 +9,7 @@ const Modal = ({ children, isOpen, closeModal }) => {
 
     return (
         <div className={`${isOpen ? 'flex' : 'hidden' } items-center justify-center fixed z-50 bg-neutral-950/90 top-0 left-0 w-dvw h-dvh`}>
-            <div className="relative  px-4 md:px-8 py-10 bg-neutral-900 rounded-xl shadow border border-neutral-800 w-11/12 sm:max-w-[30rem] min-h-64 flex justify-center items-start">
+            <div className="relative px-4 md:px-8 py-10 bg-neutral-900 rounded-xl shadow border border-neutral-800 w-11/12 sm:max-w-[30rem] min-h-64 flex justify-center items-start flex-col">
                 <button onClick={closeModalClickHandler}
                         className="absolute top-2 left-2 text-neutral-300 hover:text-neutral-50 transition-colors duration-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
