@@ -10,7 +10,7 @@ const Input = ({ register, name, required, input_type, label, id, errors, watch,
                 type={input_type}
                 className={`px-4 py-2.5 w-full border ${errors[name] ? 'border-red-600' : 'border-neutral-500'} rounded-md peer bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-neutral-300 autofill:shadow-[inset_0_0_0px_1000px_rgba(23,23,23,1)]`}
             />
-            <label htmlFor={id} className={`absolute left-2 top-0 transition-all duration-300 ${watch(name) ? '-top-1/4' : 'top-1/4'} ${errors[name] ? 'top-[12.5%] peer-focus:-top-[16%]' : 'peer-focus:-top-1/4'} peer-placeholder-shown:-top-1/4  bg-neutral-900 px-1`}>
+            <label htmlFor={id} className={`absolute left-2 transition-all duration-300 ${watch(name) ? '-top-1/4' : 'top-1/4'} ${errors[name] ? 'top-[12.5%] peer-focus:-top-[16%]' : 'peer-focus:-top-1/4'} peer-placeholder-shown:-top-1/4  bg-neutral-900 px-1`}>
                 {label}{required && "*"}
             </label>
             <ErrorMessage

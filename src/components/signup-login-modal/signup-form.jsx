@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Input from "../ui/input";
 import { useForm } from "react-hook-form";
 import {fetcher} from "../../utils/fetch";
@@ -19,6 +19,7 @@ const SignupForm = () => {
     });
     const { loginChangeHandler } = useIsLoggedIn();
     const { closeModal } = useSignupLoginModal();
+    const [error, setError] = useState(null);
 
     const password = watch("password"); // This is used to validate the confirmPassword
 
@@ -33,7 +34,7 @@ const SignupForm = () => {
                 'Content-Type': 'application/json'
             });
             if (res['isSuccess']) {
-                loginChangeHandler(true, res['userID']);
+                loginChangeHandler(true, res['user']);
                 reset({
                     name: '',
                     email: '',
@@ -41,6 +42,9 @@ const SignupForm = () => {
                     confirmPassword: ''
                 });
                 closeModal();
+            }
+            else {
+                setError(res['message']);
             }
         } catch (e) {
             console.log('Error creating account:', e.message)
@@ -51,6 +55,7 @@ const SignupForm = () => {
     return (
         <form onSubmit={handleSubmit(submitHandler)} className="flex flex-col gap-4 p-4">
             <h2 className="text-2xl font-semibold">Create Account</h2>
+            {error && <span className="text-red-500">{error}</span>}
             <Input register={register} name="name" required={true} input_type="text" label="Name" id="name_input" errors={errors} watch={watch} validation={{
                 pattern: {
                     value: /^[a-zA-Z\s]*$/,

@@ -13,10 +13,10 @@ export const IsLoggedInProvider = ({children}) => {
         setIsLoggedIn(!!userID);
     }, [userID]);
 
-    const loginChangeHandler = (isLoggedIn, userId= '') => {
+    const loginChangeHandler = (isLoggedIn, user={}) => {
         if (isLoggedIn) {
-            localStorage.setItem("cocktailify-user-logged-in", userId);
-            setIsLoggedIn(!!userId)
+            localStorage.setItem("cocktailify-user-logged-in", JSON.stringify(user));
+            setIsLoggedIn(true)
         }
         else {
             localStorage.removeItem("cocktailify-user-logged-in");
