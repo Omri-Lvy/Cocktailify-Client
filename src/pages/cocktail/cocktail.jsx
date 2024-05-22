@@ -26,12 +26,14 @@ const Cocktail = () => {
         }
 
         setIsLiked(isLikedResolver());
-    }, [cocktail, favorites, isLoggedIn]);
+    }, [favorites, isLoggedIn, cocktail]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
     }, []);
+
+
 
     useEffect(() => {
         document.title = "Cocktailify - " + cocktail.strDrink || "Cocktail";

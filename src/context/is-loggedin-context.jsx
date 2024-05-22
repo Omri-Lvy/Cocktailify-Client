@@ -15,7 +15,7 @@ export const IsLoggedInProvider = ({children}) => {
 
     const loginChangeHandler = (isLoggedIn, user={}) => {
         if (isLoggedIn) {
-            localStorage.setItem("cocktailifyLoggedInUser", JSON.stringify(user.id));
+            localStorage.setItem("cocktailifyLoggedInUser", user.id);
             localStorage.setItem("cocktailifyUserFavorites", JSON.stringify(user.favorites));
             setIsLoggedIn(true)
             setFavorites(user.favorites)
