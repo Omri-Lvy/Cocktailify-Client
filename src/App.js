@@ -8,6 +8,7 @@ import Search from "./pages/search/search";
 import DrinksByType from "./pages/drinks-by-type/drinks-by-type";
 import Category from "./pages/category/category";
 import SignupLoginModal from "./components/signup-login-modal/signup-login-modal";
+import Favorites from "./pages/favorites/favorites";
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
                     <Route path="alcoholic-drinks" element={<DrinksByType/>}/>
                     <Route path="non-alcoholic-drinks" element={<DrinksByType/>}/>
                     <Route path="category/:category" element={<Category/>}/>
+                    <Route path="my-favorites" element={<Favorites/>}/>
                     <Route path="*" element={<></>}/>
                 </Routes>
             </div>

@@ -1,32 +1,40 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 const IsLoggedInContext = React.createContext({
     isLoggedIn: false,
-    loginChangeHandler: () => {}
+    loginChangeHandler: () => {},
+    userID: null,
+    favorites: [],
+    setFavorites: () => {},
 });
 
 export const IsLoggedInProvider = ({children}) => {
-    const userID = localStorage.getItem("cocktailify-user-logged-in");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        setIsLoggedIn(!!userID);
-    }, [userID]);
+    const [userID, setUserID] = useState(localStorage.getItem("cocktailifyLoggedInUser"));
+    const [isLoggedIn, setIsLoggedIn] = useState(!!userID);
+    const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("cocktailifyUserFavorites")) || []);
 
     const loginChangeHandler = (isLoggedIn, user={}) => {
         if (isLoggedIn) {
-            localStorage.setItem("cocktailify-user-logged-in", JSON.stringify(user));
+            localStorage.setItem("cocktailifyLoggedInUser", JSON.stringify(user.id));
+            localStorage.setItem("cocktailifyUserFavorites", JSON.stringify(user.favorites));
             setIsLoggedIn(true)
+            setFavorites(user.favorites)
+            setUserID(user.id)
         }
         else {
             localStorage.removeItem("cocktailify-user-logged-in");
             setIsLoggedIn(false)
+            setFavorites([])
+            setUserID(null)
         }
     }
 
     const contextValue = {
         isLoggedIn,
-        loginChangeHandler
+        loginChangeHandler,
+        userID,
+        favorites,
+        setFavorites,
     }
 
     return (

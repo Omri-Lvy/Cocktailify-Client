@@ -9,18 +9,16 @@ const CocktailCard = ({cocktail}) => {
     const navigate = useNavigate();
     const cocktailCategory = cocktail.strCategory === 'Other / Unknown' ? 'General' : cocktail.strCategory;
     const categoryLink = cocktailCategory?.toLowerCase().replaceAll("/", "%2F") || "";
-    const {isLoggedIn} = useIsLoggedIn();
+    const {isLoggedIn, favorites, userID, setFavorites} = useIsLoggedIn();
 
     useEffect(() => {
         const isLikedResolver = () => {
             if (!isLoggedIn) return;
-            const userDetails = JSON.parse(localStorage.getItem("cocktailify-user-logged-in"));
-            const likedCocktails = userDetails?.favorites || [];
-            return likedCocktails.find(c => c.idDrink === cocktail.idDrink)
+            return favorites.find(c => c.idDrink === cocktail.idDrink)
         }
 
         setIsLiked(isLikedResolver());
-    }, []);
+    }, [favorites, isLoggedIn, cocktail]);
 
     const cardClickHandler = (e) => {
         e.stopPropagation();
@@ -36,33 +34,29 @@ const CocktailCard = ({cocktail}) => {
     }
 
     const updateFavorites = async () => {
-        const userDetails = JSON.parse(localStorage.getItem("cocktailify-user-logged-in"));
-        const likedCocktails = userDetails?.favorites || [];
-        const isLiked = likedCocktails.find(c => c.idDrink === cocktail.idDrink)
         if (isLiked) {
             const requesetBody = {
-                user_id: userDetails.id,
+                user_id: userID,
                 cocktail_id: cocktail.idDrink
             }
             const res = await fetcher('/remove-favorite', 'POST', JSON.stringify(requesetBody), {
                 'Content-Type': 'application/json'
             });
             if (!res['isSuccess']) return;
-            userDetails.favorites = likedCocktails.filter(c => c.idDrink !== cocktail.idDrink);
+            setFavorites(prev => prev.filter(c => c.idDrink !== cocktail.idDrink));
             setIsLiked(false)
         } else {
             const requesetBody = {
-                user_id: userDetails.id,
+                user_id: userID,
                 cocktail: cocktail
             }
             const res = await fetcher('/add-favorite', 'POST', JSON.stringify(requesetBody), {
                 'Content-Type': 'application/json'
             });
             if (!res['isSuccess']) return;
-            userDetails.favorites.push(cocktail);
+            setFavorites(prev => [...prev, cocktail]);
             setIsLiked(true)
         }
-        localStorage.setItem("cocktailify-user-logged-in", JSON.stringify(userDetails));
     }
 
     return (
